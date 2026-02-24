@@ -1,0 +1,66 @@
+{
+  "users": [
+    {
+      "id": "EMP_RYJKEPOQS",
+      "username": "SWAROOP",
+      "email": "swaroopchoudary118@gmail.com",
+      "password": "Sw@roop@1234",
+      "first_name": "JASTI SWAROOP",
+      "last_name": "CHOUDARY",
+      "is_active": true,
+      "is_admin": true
+    }
+  ],
+  "profiles": [
+    {
+      "profileId": "PROF_EMP_RYJKEPOQS",
+      "userId": "EMP_RYJKEPOQS",
+      "category": "ASSOCIATE",
+      "designation": "ASSOCIATE TRAINEE",
+      "employee_code": "20250002",
+      "profile_pic": null
+    }
+  ],
+  "cases": [
+    {
+      "id": "CASE_TJAH5H1KG",
+      "case_id": "WP 2784/2026",
+      "type": "CIVIL",
+      "status": "DISPOSED",
+      "client_name": "INDIA TRADERS",
+      "client_id": "",
+      "lawyer": "SWAROOP",
+      "court": "11",
+      "opponent": "",
+      "priority": "NORMAL",
+      "role": "PETITIONER",
+      "petitioner": "INDIA TRADERS",
+      "respondent": "STATE OF AP",
+      "next_hearing": "",
+      "delete_requested": false,
+      "created_at": "2026-02-23T12:53:09.597Z",
+      "caseCategory": "WP",
+      "caseNumber": "2784",
+      "caseYear": "2026"
+    }
+  ],
+  "clients": [
+    {
+      "id": "CLI_V896CAA9N",
+      "name": "INDIA TRADERS ",
+      "phone": "",
+      "email": "",
+      "address": "",
+      "status": "DISPOSED",
+      "lead_counsel": "",
+      "total_fee": 50000,
+      "paid_fee": 35000,
+      "reminders": {
+        "whatsapp": false,
+        "email": false
+      },
+      "visits": [],
+      "created_at": "2026-02-23T14:24:03.615Z"
+    }
+  ]
+}
