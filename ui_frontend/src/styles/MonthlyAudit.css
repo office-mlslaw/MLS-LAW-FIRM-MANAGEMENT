@@ -1,0 +1,111 @@
+/* ============================================================
+   FILE: MonthlyAudit.css
+   ============================================================ */
+
+/* --- TACTICAL GRID BACKGROUND --- */
+.grid-bg {
+    background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+.dark .grid-bg {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+/* --- CUSTOM RANGE SLIDER (Peer Evaluation) --- */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+/* The Draggable Thumb (Dot) */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: #f59e0b;
+    /* Tailwind amber-500 */
+    cursor: pointer;
+    margin-top: -7px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #fbbf24;
+    /* Tailwind amber-400 */
+}
+
+/* The Background Track */
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: #e7e5e4;
+    /* Tailwind stone-200 */
+    border-radius: 2px;
+}
+
+/* Dark Mode Track */
+.dark input[type=range]::-webkit-slider-runnable-track {
+    background: #292524;
+    /* Tailwind stone-800 */
+}
+
+/* --- ANIMATIONS --- */
+.animate-fade-in {
+    animation: auditFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes auditFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-pulse {
+    animation: pulseLock 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulseLock {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* --- CUSTOM TEXTAREA SCROLLBAR --- */
+.legal-textarea::-webkit-scrollbar {
+    width: 6px;
+}
+
+.legal-textarea::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.legal-textarea::-webkit-scrollbar-thumb {
+    background-color: #d6d3d1;
+    border-radius: 10px;
+}
+
+.dark .legal-textarea::-webkit-scrollbar-thumb {
+    background-color: #292524;
+}

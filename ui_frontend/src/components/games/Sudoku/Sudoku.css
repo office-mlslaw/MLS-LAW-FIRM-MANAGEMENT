@@ -1,0 +1,89 @@
+/* ============================================================
+   FILE: Sudoku.css
+   ============================================================ */
+
+.sudoku-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #09090b;
+    min-height: calc(100vh - 80px);
+    color: white;
+}
+
+.sudoku-board {
+    display: grid;
+    grid-template-columns: repeat(9, 45px);
+    grid-template-rows: repeat(9, 45px);
+    border: 3px solid #333;
+    background: #121214;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.sudoku-cell {
+    width: 45px;
+    height: 45px;
+    border: 1px solid #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sudoku-cell:hover {
+    background: rgba(245, 158, 11, 0.1);
+}
+
+/* Creating the 3x3 sub-grid borders */
+.sudoku-cell:nth-child(3n) {
+    border-right: 3px solid #333;
+}
+
+.sudoku-cell:nth-child(9n) {
+    border-right: 1px solid #222;
+}
+
+/* Reset for row ends */
+.sudoku-row-3n {
+    border-bottom: 3px solid #333;
+}
+
+.cell-fixed {
+    color: #94a3b8;
+    background: #0f172a;
+    cursor: default;
+}
+
+.cell-selected {
+    background: #f59e0b !important;
+    color: black;
+}
+
+.cell-error {
+    color: #ef4444;
+}
+
+.number-pad {
+    display: grid;
+    grid-template-columns: repeat(9, 40px);
+    gap: 8px;
+    margin-top: 2rem;
+}
+
+.num-btn {
+    height: 40px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    font-weight: 900;
+    color: #f59e0b;
+    transition: transform 0.1s;
+}
+
+.num-btn:active {
+    transform: scale(0.9);
+}

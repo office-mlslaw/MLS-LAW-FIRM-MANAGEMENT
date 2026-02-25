@@ -1,0 +1,294 @@
+/* ============================================================
+   FILE: PersonnelRoll.css
+   PERSONNEL ROLL & DOSSIER STYLES
+   ============================================================ */
+
+/* --- 1. HEADER & GLOBAL UTILS --- */
+.lex-header {
+    height: 80px;
+    background: var(--surface-color, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* THE FIX: Brings the clock and title safely inside the screen bounds */
+    padding: 0 40px;
+
+    /* THE FIX: Prevents the header from expanding behind the sidebar */
+    width: 100%;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+}
+
+.onboard-btn {
+    background: #EAB308;
+    /* Legal Gold */
+    color: #000;
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.onboard-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(234, 179, 8, 0.3);
+}
+
+/* --- SCROLLBAR CUSTOMIZATION --- */
+.custom-scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+    /* Fixes content bleeding behind sidebar */
+    box-sizing: border-box;
+}
+
+.custom-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: rgba(234, 179, 8, 0.2);
+    border-radius: 20px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(234, 179, 8, 0.5);
+}
+
+/* --- 2. THE HORIZONTAL CARDS --- */
+.lex-horizontal-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: calc(100% - 40px);
+    max-width: 100%;
+    /* FIX: Prevents grid blowout */
+    margin-left: 40px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.05));
+    border-radius: 28px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: cardFadeIn 0.5s ease-out forwards;
+    box-sizing: border-box;
+}
+
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.lex-horizontal-card:hover {
+    transform: translateX(8px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #EAB308;
+}
+
+/* Image Pop-Out Effect */
+.lex-card-img-wrapper {
+    width: 100px;
+    height: 125px;
+    margin-left: -65px;
+    margin-right: 24px;
+    flex-shrink: 0;
+    transition: transform 0.4s ease;
+}
+
+.lex-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 15px 20px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.05));
+    background-color: #1c1917;
+}
+
+.lex-horizontal-card:hover .lex-card-img-wrapper {
+    transform: scale(1.08) rotate(-2deg);
+}
+
+.lex-emp-id {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.2);
+    letter-spacing: 1px;
+}
+
+/* Card Content & Buttons */
+.lex-chat-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: #EAB308;
+    border-radius: 10px;
+    color: #000 !important;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: 0.2s;
+}
+
+.lex-chat-btn:hover {
+    background: #fff;
+}
+
+.lex-menu-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+    color: var(--text-secondary, #a8a29e);
+    transition: all 0.2s;
+}
+
+.lex-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.employee-deactivated {
+    opacity: 0.5;
+    filter: grayscale(1);
+    pointer-events: none;
+}
+
+.employee-deactivated .lex-menu-btn {
+    pointer-events: auto;
+}
+
+/* --- 3. DOSSIER PANEL & OVERLAYS (THE GHOSTING FIX) --- */
+.profile-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+
+    /* --- CRITICAL: FIXES INVISIBLE WALL --- */
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.profile-overlay.visible {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.profile-panel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    max-width: 480px;
+    background: var(--surface-color, #171717);
+    border-left: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.8);
+
+    /* Slide Animation */
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-panel.open {
+    transform: translateX(0);
+}
+
+/* --- 4. PERFORMANCE CHARTS & MENUS --- */
+.conic-pie {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: background 1s ease-out;
+}
+
+.pie-inner {
+    width: 70px;
+    height: 70px;
+    background: var(--surface-color, #171717);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+/* Context Menu Animation */
+.animate-fade-in {
+    animation: fadeInFast 0.2s ease-out forwards;
+}
+
+@keyframes fadeInFast {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- 5. THEME OVERRIDES (TRIPLE ENGINE) --- */
+[data-theme="dark"] .lex-horizontal-card {
+    background: rgba(18, 18, 21, 0.4);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="parchment"] .lex-horizontal-card {
+    background-color: #f5f2eb !important;
+    border-color: #d6d3c9 !important;
+}
+
+[data-theme="parchment"] .role-text {
+    color: #80011f !important;
+    font-weight: 800;
+}
+
+[data-theme="parchment"] .lex-chat-btn {
+    background-color: #80011f !important;
+    color: #fff !important;
+}
+
+[data-theme="parchment"] .profile-panel {
+    background-color: #e5e2d9;
+    border-color: #d6d3c9;
+}
+
+[data-theme="parchment"] .pie-inner {
+    background-color: #e5e2d9;
+    color: #000;
+}

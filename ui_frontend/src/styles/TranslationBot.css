@@ -1,0 +1,211 @@
+/* ============================================================
+   FILE: TranslationBot.css
+   ============================================================ */
+
+.tb-container {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* LEFT: CONFIG PANEL */
+.tb-form-panel {
+    width: 450px;
+    background: white;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.dark .tb-form-panel {
+    background: #0a0a0a;
+    border-right: 1px solid #27272a;
+}
+
+.tb-form-scroll {
+    padding: 2rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* File Upload Dropzone */
+.tb-file-drop {
+    border: 2px dashed #d1d5db;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #f9fafb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.dark .tb-file-drop {
+    border-color: #27272a;
+    background: #18181b;
+}
+
+.tb-file-drop:hover {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.tb-file-drop i {
+    font-size: 2rem;
+    color: #9ca3af;
+    margin-bottom: 10px;
+}
+
+.tb-file-drop span {
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #6b7280;
+}
+
+/* Inputs */
+.tb-input-group {
+    margin-bottom: 1.5rem;
+}
+
+.tb-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+    border-left: 3px solid #f59e0b;
+    padding-left: 8px;
+}
+
+.tb-textarea {
+    width: 100%;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #111;
+    outline: none;
+    transition: 0.2s;
+}
+
+.dark .tb-textarea {
+    background: #18181b;
+    border-color: #27272a;
+    color: white;
+}
+
+.tb-textarea:focus {
+    border-color: #f59e0b;
+    background: white;
+}
+
+.dark .tb-textarea:focus {
+    background: #0a0a0a;
+}
+
+/* RIGHT: WORKSPACE (Translation Workbench) */
+.tb-workspace {
+    flex: 1;
+    background-color: #525659;
+    overflow: auto;
+    padding: 3rem;
+}
+
+.dark .tb-workspace {
+    background-color: #171717;
+}
+
+.tb-workbench-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-bottom: 5rem;
+}
+
+/* Translation Segments (Block-by-Block) */
+.tb-segment-card {
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e5e7eb;
+}
+
+.dark .tb-segment-card {
+    background: #121212;
+    border-color: #27272a;
+}
+
+.tb-segment-source {
+    flex: 1;
+    padding: 1.5rem;
+    background: #f9fafb;
+    border-right: 1px solid #e5e7eb;
+}
+
+.dark .tb-segment-source {
+    background: #0f0f10;
+    border-color: #27272a;
+}
+
+.tb-segment-target {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.tb-segment-header {
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.tb-source-text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #4b5563;
+    font-family: 'Noto Sans Telugu', sans-serif;
+}
+
+.dark .tb-source-text {
+    color: #a1a1aa;
+}
+
+.tb-target-textarea {
+    flex: 1;
+    width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    resize: none;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #111;
+    font-weight: 500;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.dark .tb-target-textarea {
+    color: #e5e7eb;
+}
+
+.tb-target-textarea:focus {
+    border-bottom: 2px dashed #f59e0b;
+}

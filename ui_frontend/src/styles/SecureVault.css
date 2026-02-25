@@ -1,0 +1,116 @@
+/* ============================================================
+   FILE: SecureVault.css
+   ============================================================ */
+
+/* --- CUSTOM SCROLLBARS --- */
+.custom-scroll::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background-color: #d6d3d1;
+    /* stone-300 */
+    border-radius: 10px;
+}
+
+.dark .custom-scroll::-webkit-scrollbar-thumb {
+    background-color: #292524;
+    /* stone-800 */
+}
+
+/* Hide scrollbar for the breadcrumb navigation */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* --- ANIMATIONS --- */
+
+/* Main UI Fade In */
+.animate-fade-in {
+    animation: vaultFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes vaultFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Modal Pop (Snappy scale-in for Security & Action Modals) */
+.modal-pop {
+    animation: modalPopIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalPopIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Upload & Lock Indicator Pulse */
+.animate-pulse {
+    animation: lockPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes lockPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+/* --- THEME & INTERACTION TRANSITIONS --- */
+.transition-colors {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.transition-transform {
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+.transition-opacity {
+    transition-property: opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+}
+
+.transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+/* --- FILE / FOLDER ROW FIXES --- */
+/* Ensures the Edit/Delete buttons smoothly appear when hovering over a row */
+tr.group:hover .group-hover\:opacity-100 {
+    opacity: 1 !important;
+}

@@ -1,0 +1,319 @@
+/* ============================================================
+   FILE: DraftingBot.css
+   ============================================================ */
+
+.bot-container {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* LEFT: QUESTIONNAIRE WIZARD */
+.bot-form-panel {
+    width: 450px;
+    background: white;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.dark .bot-form-panel {
+    background: #0a0a0a;
+    border-right: 1px solid #27272a;
+}
+
+.bot-form-scroll {
+    padding: 2rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Wizard Steps */
+.step-indicator {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 30px;
+}
+
+.step-dot {
+    flex: 1;
+    height: 6px;
+    border-radius: 10px;
+    background: #e5e7eb;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.dark .step-dot {
+    background: #27272a;
+}
+
+.step-dot.active {
+    background: #f59e0b;
+}
+
+.step-dot.completed {
+    background: #10b981;
+}
+
+.step-title {
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: #111;
+}
+
+.dark .step-title {
+    color: white;
+}
+
+/* Inputs */
+.bot-input-group {
+    margin-bottom: 1.2rem;
+}
+
+.bot-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+    border-left: 3px solid #f59e0b;
+    padding-left: 8px;
+}
+
+.bot-input,
+.bot-select,
+.bot-textarea {
+    width: 100%;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #111;
+    outline: none;
+    transition: 0.2s;
+}
+
+.dark .bot-input,
+.dark .bot-select,
+.dark .bot-textarea {
+    background: #18181b;
+    border-color: #27272a;
+    color: white;
+}
+
+.bot-input:focus,
+.bot-select:focus,
+.bot-textarea:focus {
+    border-color: #f59e0b;
+    background: white;
+}
+
+.dark .bot-input:focus,
+.dark .bot-select:focus,
+.dark .bot-textarea:focus {
+    background: #0a0a0a;
+}
+
+.force-caps {
+    text-transform: uppercase;
+}
+
+/* Index Builder */
+.index-row-editor {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.index-row-editor input {
+    padding: 8px;
+    font-size: 0.75rem;
+}
+
+/* Wizard Buttons */
+.wizard-nav {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.btn-wizard {
+    flex: 1;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.2s;
+    text-align: center;
+    border: none;
+}
+
+.btn-prev {
+    background: #e5e7eb;
+    color: #555;
+}
+
+.dark .btn-prev {
+    background: #27272a;
+    color: #aaa;
+}
+
+.btn-prev:hover {
+    background: #d1d5db;
+}
+
+.dark .btn-prev:hover {
+    background: #3f3f46;
+}
+
+.btn-next {
+    background: #f59e0b;
+    color: black;
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+}
+
+.btn-next:hover {
+    opacity: 0.9;
+}
+
+/* RIGHT: PREVIEW PANEL */
+.bot-preview-panel {
+    flex: 1;
+    background-color: #525659;
+    overflow: auto;
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.dark .bot-preview-panel {
+    background-color: #171717;
+}
+
+.legal-paper-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 5rem;
+}
+
+.legal-paper {
+    width: 210mm;
+    min-height: 297mm;
+    background: white;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    padding: 25mm;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif;
+    color: #000;
+}
+
+/* Legal Draft Formats */
+.draft-court-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    margin-bottom: 20px;
+}
+
+.draft-case-num {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.draft-between {
+    text-align: center;
+    font-size: 14px;
+    margin: 15px 0;
+}
+
+/* 🌟 BULLETPROOF ALIGNMENT FIX FOR RESPONDENTS 🌟 */
+.draft-party-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 15px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.draft-party-desc {
+    width: 70%;
+    line-height: 1.6;
+}
+
+.draft-party-role {
+    width: 30%;
+    text-align: right;
+    font-weight: bold;
+    padding-bottom: 2px;
+}
+
+.draft-and {
+    text-align: center;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.draft-heading {
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 14px;
+    margin: 30px 0 20px 0;
+    text-transform: uppercase;
+}
+
+.draft-para {
+    text-indent: 50px;
+    text-align: justify;
+    line-height: 2;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* Docket Specifics */
+.docket-box {
+    border: 2px solid #000;
+    padding: 20px;
+    margin-top: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Table format for Index */
+.draft-index-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.draft-index-table th,
+.draft-index-table td {
+    border: 1px solid #000;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.draft-index-table th {
+    font-weight: bold;
+}

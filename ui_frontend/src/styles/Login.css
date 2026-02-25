@@ -1,0 +1,433 @@
+/* ============================================================
+   FILE: Login.css
+   PREMIUM CYBER-SECURITY THEME
+   ============================================================ */
+
+:root {
+    --bg-deep: #0a0a0c;
+    --panel-dark: #121215;
+    --accent-yellow: #f5b000;
+    --accent-yellow-glow: rgba(245, 176, 0, 0.4);
+    --admin-red: #a80a2a;
+    --admin-red-glow: rgba(168, 10, 42, 0.4);
+    --text-muted: #73737a;
+}
+
+/* Base Wrapper */
+.security-wrapper {
+    background: radial-gradient(circle at top right, #1a1a20 0%, var(--bg-deep) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    width: 100%;
+}
+
+/* --- SLEEK CLOCK WIDGET (MINIMAL & COMPACT) --- */
+.clock-widget {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 100;
+}
+
+.clock-time {
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: -0.5px;
+    line-height: 1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.clock-time span {
+    color: var(--accent-yellow);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.clock-date {
+    font-size: 0.55rem;
+    letter-spacing: 3px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 3px;
+}
+
+/* --- MASTER CARD LAYOUT --- */
+.portal-card {
+    position: relative;
+    width: 850px;
+    height: 550px;
+    margin-top: 40px;
+    background: var(--panel-dark);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.8), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+    display: flex;
+}
+
+/* The Sliding Door */
+.slider-door {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffd000, #d99600);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.2), 0 0 40px rgba(0, 0, 0, 0.5);
+    transition: transform 0.7s cubic-bezier(0.8, 0, 0.2, 1), background 0.6s ease;
+}
+
+.slider-door.admin-active {
+    transform: translateX(100%);
+    background: linear-gradient(135deg, #d31a38, #82041d);
+}
+
+/* Panels */
+.panel {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.panel.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+/* Positioning */
+.hero-user {
+    left: 0;
+    z-index: 15;
+    color: #000;
+}
+
+.hero-admin {
+    left: 50%;
+    z-index: 15;
+    color: #fff;
+}
+
+.form-user {
+    left: 50%;
+    background: transparent;
+    padding: 0 45px;
+}
+
+.form-admin {
+    left: 0;
+    background: #0c0c0e;
+    padding: 0 45px;
+}
+
+/* --- PREMIUM TYPOGRAPHY & BUTTONS --- */
+.portal-title {
+    font-weight: 900;
+    font-size: 26px;
+    letter-spacing: -1px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+/* Enforce the exact brand colors, overriding any defaults */
+.form-user .portal-title {
+    color: var(--accent-yellow);
+}
+
+.form-admin .portal-title {
+    color: var(--admin-red);
+}
+
+.portal-subtitle {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.hero-title {
+    font-weight: 900;
+    font-size: 24px;
+    letter-spacing: -1px;
+    margin-top: 5px;
+    text-transform: uppercase;
+}
+
+.hero-subtitle {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+/* Force stark contrast for the text sitting on top of the sliding colored doors */
+.hero-user .hero-title,
+.hero-user .hero-subtitle {
+    color: #000000;
+    font-weight: 900;
+}
+
+.hero-admin .hero-title,
+.hero-admin .hero-subtitle {
+    color: #ffffff;
+    font-weight: 900;
+}
+
+.btn-switch {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 10px 25px;
+    font-weight: 800;
+    font-size: 10px;
+    letter-spacing: 2px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    backdrop-filter: blur(5px);
+}
+
+.btn-switch:hover {
+    background: #000;
+    color: #fff;
+}
+
+.hero-admin .btn-switch {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.hero-admin .btn-switch:hover {
+    background: #fff;
+    color: #000;
+}
+
+/* --- GLASS INPUTS --- */
+.input-group {
+    position: relative;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.input-group i.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 13px;
+    transition: 0.3s;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.premium-input {
+    width: 100%;
+    padding: 14px 16px 14px 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+}
+
+.premium-input::placeholder {
+    color: #555;
+    font-weight: 500;
+}
+
+.form-user .premium-input:focus {
+    border-color: var(--accent-yellow);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 15px var(--accent-yellow-glow);
+}
+
+.form-user .input-group:focus-within i.input-icon {
+    color: var(--accent-yellow);
+}
+
+.form-admin .premium-input:focus {
+    border-color: var(--admin-red);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 15px var(--admin-red-glow);
+}
+
+.form-admin .input-group:focus-within i.input-icon {
+    color: var(--admin-red);
+}
+
+.btn-reveal {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 13px;
+    outline: none;
+}
+
+.btn-reveal:hover {
+    color: #fff;
+}
+
+/* --- CHECKBOX UI --- */
+.flex-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    width: 100%;
+}
+
+.chk-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.chk-wrap input {
+    display: none;
+}
+
+.chk-box {
+    width: 16px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.chk-wrap input:checked~.chk-box {
+    background: var(--accent-yellow);
+    border-color: var(--accent-yellow);
+}
+
+.form-admin .chk-wrap input:checked~.chk-box {
+    background: var(--admin-red);
+    border-color: var(--admin-red);
+}
+
+.chk-box::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 9px;
+    color: #000;
+    display: none;
+}
+
+.form-admin .chk-box::after {
+    color: #fff;
+}
+
+.chk-wrap input:checked~.chk-box::after {
+    display: block;
+}
+
+.link {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.link:hover {
+    color: #fff;
+}
+
+/* --- SUBMIT BUTTON --- */
+.btn-submit {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    background: var(--accent-yellow);
+    color: #000;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px rgba(245, 176, 0, 0.3);
+}
+
+.form-admin .btn-submit {
+    background: var(--admin-red);
+    color: #fff;
+}
+
+.form-admin .btn-submit:hover {
+    box-shadow: 0 15px 25px rgba(168, 10, 42, 0.3);
+}
+
+.footer-stamp {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 5px;
+    color: var(--text-muted);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.error-msg {
+    background: rgba(255, 50, 50, 0.1);
+    border: 1px solid #ff3333;
+    color: #ff6666;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}

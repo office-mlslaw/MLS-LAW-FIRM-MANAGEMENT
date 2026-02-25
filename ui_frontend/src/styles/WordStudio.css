@@ -1,0 +1,159 @@
+/* ============================================================
+   FILE: WordStudio.css
+   ============================================================ */
+
+.word-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #f3f4f6;
+    overflow: hidden;
+}
+
+.dark .word-container {
+    background-color: #121212;
+}
+
+/* --- TOOLBAR --- */
+.word-toolbar {
+    height: 60px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 10px;
+    z-index: 10;
+    flex-shrink: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.dark .word-toolbar {
+    background: #0a0a0a;
+    border-bottom: 1px solid #27272a;
+}
+
+.toolbar-divider {
+    width: 1px;
+    height: 30px;
+    background: #e5e7eb;
+    margin: 0 10px;
+}
+
+.dark .toolbar-divider {
+    background: #27272a;
+}
+
+.tool-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: #4b5563;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;
+}
+
+.dark .tool-btn {
+    color: #a1a1aa;
+}
+
+.tool-btn:hover {
+    background: #f3f4f6;
+    color: #111;
+}
+
+.dark .tool-btn:hover {
+    background: #27272a;
+    color: white;
+}
+
+.tool-btn.active {
+    background: rgba(245, 158, 11, 0.2);
+    color: #d97706;
+}
+
+/* Dropdowns */
+.tool-select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    color: #111;
+    font-size: 12px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+}
+
+.dark .tool-select {
+    background: #18181b;
+    border-color: #27272a;
+    color: white;
+}
+
+/* --- WORKSPACE & PAPER --- */
+.word-workspace {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0 80px 0;
+}
+
+.a4-paper {
+    width: 210mm;
+    min-height: 297mm;
+    background: white;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 25mm 20mm;
+    outline: none;
+    color: #000;
+
+    /* Legal Defaults */
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14pt;
+    line-height: 2;
+    text-align: justify;
+}
+
+.dark .a4-paper {
+    /* Even in dark mode, the paper remains white to simulate real printing */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Placeholder styling */
+.a4-paper[data-placeholder]:empty:before {
+    content: attr(data-placeholder);
+    color: #a1a1aa;
+    pointer-events: none;
+    display: block;
+}
+
+/* --- PRINT LOGIC --- */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .a4-paper,
+    .a4-paper * {
+        visibility: visible;
+    }
+
+    .a4-paper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 210mm !important;
+        min-height: 297mm !important;
+        box-shadow: none !important;
+        padding: 15mm 20mm !important;
+        margin: 0 !important;
+    }
+}

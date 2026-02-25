@@ -1,0 +1,76 @@
+/* ============================================================
+   FILE: BlockSmash.css
+   ============================================================ */
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    min-height: calc(100vh - 80px);
+    color: white;
+}
+
+.tetris-board {
+    display: grid;
+    grid-template-rows: repeat(20, 30px);
+    grid-template-columns: repeat(10, 30px);
+    background: rgba(255, 255, 255, 0.03);
+    border: 4px solid #1a1a1a;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.tetris-cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Block Colors with Glow */
+.cell-I {
+    background: #00f0f0;
+    box-shadow: inset 0 0 10px #00f0f0;
+}
+
+.cell-J {
+    background: #0000f0;
+    box-shadow: inset 0 0 10px #0000f0;
+}
+
+.cell-L {
+    background: #f0a000;
+    box-shadow: inset 0 0 10px #f0a000;
+}
+
+.cell-O {
+    background: #f0f000;
+    box-shadow: inset 0 0 10px #f0f000;
+}
+
+.cell-S {
+    background: #00f000;
+    box-shadow: inset 0 0 10px #00f000;
+}
+
+.cell-T {
+    background: #a000f0;
+    box-shadow: inset 0 0 10px #a000f0;
+}
+
+.cell-Z {
+    background: #f00000;
+    box-shadow: inset 0 0 10px #f00000;
+}
+
+.game-over-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    backdrop-blur: 5px;
+}

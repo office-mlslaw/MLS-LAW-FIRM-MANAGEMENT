@@ -1,0 +1,152 @@
+/* ============================================================
+   FILE: MasterLayout.css
+   THEME, SIDEBAR, & LOGOUT ANIMATIONS
+   ============================================================ */
+
+/* 1. Global Layout Structure */
+.os-wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.os-main-content {
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+    background-color: var(--bg-color);
+}
+
+/* 2. The Animated Logout Modal */
+.logout-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.logout-modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.logout-modal {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    width: 350px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.logout-modal-overlay.open .logout-modal {
+    transform: translateY(0);
+}
+
+/* The "Walking Out" Animation */
+.doorway-container {
+    width: 100px;
+    height: 120px;
+    margin: 0 auto 1.5rem auto;
+    position: relative;
+    border-bottom: 2px solid var(--border-color);
+    overflow: hidden;
+}
+
+.door {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    width: 40px;
+    height: 80px;
+    border: 2px solid var(--text-primary);
+    border-radius: 4px 4px 0 0;
+    border-bottom: none;
+    transform-origin: left;
+    transition: transform 0.5s ease;
+}
+
+.logout-modal-overlay.open .door {
+    transform: perspective(200px) rotateY(-60deg);
+}
+
+.person {
+    position: absolute;
+    left: 10px;
+    bottom: 0;
+    font-size: 2rem;
+    color: var(--accent-color);
+    transition: all 1.5s ease;
+}
+
+.logout-modal-overlay.open .person.walking {
+    animation: walkOut 1.5s forwards;
+}
+
+@keyframes walkOut {
+    0% {
+        transform: translateX(0) translateY(0);
+        opacity: 1;
+    }
+
+    30% {
+        transform: translateX(30px) translateY(-10px);
+    }
+
+    /* The Jump */
+    60% {
+        transform: translateX(50px) translateY(0) scale(0.8);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(70px) translateY(0) scale(0.5);
+        opacity: 0;
+    }
+}
+
+.modal-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.btn-cancel {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-cancel:hover {
+    background: rgba(128, 128, 128, 0.1);
+}
+
+.btn-confirm {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-confirm:hover {
+    background: #dc2626;
+}

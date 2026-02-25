@@ -1,0 +1,45 @@
+/* ============================================================
+   FILE: GrievanceAdmin.css
+   ============================================================ */
+
+.admin-grid-bg {
+    background-image: radial-gradient(rgba(239, 68, 68, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+.custom-scroll-red::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scroll-red::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scroll-red::-webkit-scrollbar-thumb {
+    background-color: #fca5a5;
+    /* red-300 */
+    border-radius: 10px;
+}
+
+.dark .custom-scroll-red::-webkit-scrollbar-thumb {
+    background-color: #7f1d1d;
+    /* red-900 */
+}
+
+.animate-pulse-red {
+    animation: redPulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes redPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(1.1);
+    }
+}

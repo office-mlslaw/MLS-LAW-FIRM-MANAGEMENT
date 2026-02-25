@@ -1,0 +1,57 @@
+/* ============================================================
+   FILE: Arcade.css
+   ============================================================ */
+
+/* The Retro Grid Background */
+.arcade-bg {
+    background-color: #09090b;
+    /* Deep zinc */
+    background-image:
+        radial-gradient(circle at 50% -20%, #2e1065 0%, transparent 60%),
+        /* Purple glow top */
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 100% 100%, 32px 32px, 32px 32px;
+    background-position: 0 0, 16px 16px, 16px 16px;
+}
+
+/* Neon Game Cards Hover Effect */
+.neon-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neon-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    /* The box-shadow color is controlled inline via style tags in JS */
+}
+
+/* Custom Scrollbar for the Leaderboard */
+.arcade-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.arcade-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.arcade-scroll::-webkit-scrollbar-thumb {
+    background-color: #a855f7;
+    /* Purple */
+    border-radius: 10px;
+}
+
+/* Wiggle animation for game icons */
+.group:hover .arcade-icon-wiggle {
+    animation: wiggle 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(-10deg) scale(1.1);
+    }
+
+    100% {
+        transform: rotate(10deg) scale(1.1);
+    }
+}

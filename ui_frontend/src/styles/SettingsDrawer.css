@@ -1,0 +1,114 @@
+/* ============================================================
+   FILE: SettingsDrawer.css
+   ============================================================ */
+
+.settings-backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 9000;
+
+    /* --- THE GHOSTING FIX --- */
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    /* Physically removes the barrier when closed */
+
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.settings-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+}
+
+.settings-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 400px;
+    background-color: var(--surface-color);
+    border-right: 1px solid var(--border-color);
+    z-index: 9001;
+    transform: translateX(-100%);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 25px 0 50px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+/* When open, slide it out */
+.settings-drawer.open {
+    transform: translateX(0);
+}
+
+/* Theme Selection Buttons */
+.theme-opt {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-opt.theme-active {
+    border-color: var(--accent-color) !important;
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
+.theme-opt.theme-active i {
+    transform: scale(1.1);
+}
+
+/* Password Strength Bar */
+.strength-bar-container {
+    height: 4px;
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.2);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Password Requirement Checklist */
+.req-item {
+    opacity: 0.5;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.req-item.valid {
+    color: #10b981;
+    /* Green */
+    opacity: 1;
+    font-weight: 700;
+}
+
+.req-item.valid i {
+    transform: scale(1.2);
+}
+
+/* The Update Button */
+.btn-active {
+    background-color: var(--accent-color) !important;
+    color: #000 !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.custom-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+}

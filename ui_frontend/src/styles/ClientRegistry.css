@@ -1,0 +1,99 @@
+/* ============================================================
+   FILE: ClientRegistry.css
+   ============================================================ */
+
+/* --- PIE CHART ENGINE --- */
+.pie-chart {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: conic-gradient(#EAB308 var(--p), #e5e7eb 0);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.5s ease-out;
+}
+
+.dark .pie-chart {
+    background: conic-gradient(#EAB308 var(--p), #292524 0);
+}
+
+.pie-chart::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #ffffff;
+}
+
+.dark .pie-chart::after {
+    background: #0f0f10;
+}
+
+/* --- 3D FLIP CARDS --- */
+.client-flip-card {
+    perspective: 1200px;
+    height: 170px;
+    cursor: pointer;
+}
+
+.client-flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.client-flip-card.active .client-flip-card-inner,
+.client-flip-card:hover .client-flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.client-flip-front,
+.client-flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.client-flip-back {
+    transform: rotateY(180deg);
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- COUNSEL DIRECTORY LIST --- */
+.counsel-pill {
+    width: 100%;
+    text-align: left;
+    padding: 8px 12px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.counsel-pill:hover {
+    background: rgba(245, 158, 11, 0.1);
+    border-left-color: #f59e0b;
+}
+
+.counsel-pill.active {
+    background: #f59e0b;
+    color: #000;
+    border-left-color: #d97706;
+}

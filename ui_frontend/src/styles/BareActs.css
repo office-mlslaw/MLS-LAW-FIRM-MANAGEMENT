@@ -1,0 +1,103 @@
+/* ============================================================
+   FILE: BareActs.css
+   ============================================================ */
+
+.animate-fade-in {
+    animation: bareActsFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-slide-up {
+    animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes bareActsFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- ACT CARDS --- */
+.act-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.dark .act-card {
+    background: #121212;
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+.act-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: transparent;
+    transition: background 0.2s ease;
+}
+
+.act-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.dark .act-card:hover {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.act-card:hover::before {
+    background: #f59e0b;
+}
+
+/* --- SECTION LIST ITEM --- */
+.section-item {
+    border-bottom: 1px solid #f5f5f4;
+    padding: 1.5rem 0;
+}
+
+.dark .section-item {
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.section-item:last-child {
+    border-bottom: none;
+}
+
+/* Highlight Keyword in Search */
+.highlight-text {
+    background-color: rgba(245, 158, 11, 0.3);
+    color: inherit;
+    padding: 0 2px;
+    border-radius: 2px;
+}
