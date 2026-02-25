@@ -20,6 +20,17 @@
     "mongoose": "^9.2.1",
     "multer": "^2.0.2",
     "pdf-lib": "^1.17.1",
-    "react-router-dom": "^7.13.0"
-  }
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.0",
+    "react-scripts": "^5.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/office-mlslaw/MLS-LAW-FIRM-MANAGEMENT.git"
+  },
+  "bugs": {
+    "url": "https://github.com/office-mlslaw/MLS-LAW-FIRM-MANAGEMENT/issues"
+  },
+  "homepage": "https://github.com/office-mlslaw/MLS-LAW-FIRM-MANAGEMENT#readme"
 }
