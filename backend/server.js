@@ -14,15 +14,22 @@ const DB_PATH = path.join(__dirname, 'db.json');
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
-// --- 📁 MULTER CONFIGURATION (SECURE VAULT) ---
+// --- 📁 MULTER CONFIGURATION (SECURE VAULT & TEMP) ---
 const uploadDir = path.join(__dirname, 'uploads', 'vault');
+const tempDir = path.join(__dirname, 'uploads', 'temp'); // ADDED: For PDF Utility Belt
+
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
     console.log("📁 Secure Vault physical directory created.");
 }
+if (!fs.existsSync(tempDir)) {
+    fs.mkdirSync(tempDir, { recursive: true });
+    console.log("📁 Temp PDF directory created.");
+}
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// 1. Vault Storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, uploadDir);
@@ -33,6 +40,13 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage: storage, limits: { fileSize: 50 * 1024 * 1024 } });
+
+// 2. Temp Storage (For Utility Belt)
+const tempStorage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, tempDir),
+    filename: (req, file, cb) => cb(null, 'temp_' + Date.now() + path.extname(file.originalname))
+});
+const uploadTemp = multer({ storage: tempStorage });
 
 // --- 📦 LOCAL DB INITIALIZER ---
 if (!fs.existsSync(DB_PATH)) {
@@ -49,7 +63,7 @@ if (!fs.existsSync(DB_PATH)) {
         vault_files: [],
         vault_folders: [],
         grievances: [],
-        arcade: [] // ADDED: Arcade leaderboard and playtime tracking
+        arcade: []
     };
     fs.writeFileSync(DB_PATH, JSON.stringify(initialData, null, 2));
     console.log("📁 Local Database Created: db.json");
@@ -519,77 +533,39 @@ app.get('/api/vault/download/:file_id', async (req, res) => {
 // 🛡️ 10. GRIEVANCE & MONTHLY AUDIT ENGINE
 // ==========================================
 
-// Upgraded Helper: Finds the exact Last Monday for a given year & month
 const getLastMonday = (year, month) => {
-    let d = new Date(year, month + 1, 0); // Last day of the month
-    while (d.getDay() !== 1) { // 1 = Monday
-        d.setDate(d.getDate() - 1);
-    }
-    d.setHours(9, 0, 0, 0); // Unlocks at 9:00 AM exactly
+    let d = new Date(year, month + 1, 0);
+    while (d.getDay() !== 1) d.setDate(d.getDate() - 1);
+    d.setHours(9, 0, 0, 0);
     return d;
 };
 
-// Check if the Monthly Audit is unlocked
 app.get('/api/audit/status', (req, res) => {
     const now = new Date();
-
-    // Find this month's Last Monday
     let target = getLastMonday(now.getFullYear(), now.getMonth());
-
-    // Check if today IS the Last Monday (ignoring exact time for the 'open' status flag)
     const isOpen = now.toDateString() === target.toDateString();
-
-    // If today is strictly past this month's Last Monday (and it's not today), aim for next month
-    if (now > target && !isOpen) {
-        target = getLastMonday(now.getFullYear(), now.getMonth() + 1);
-    }
-
-    res.json({
-        is_open: isOpen,
-        target_date: target.toISOString()
-    });
+    if (now > target && !isOpen) target = getLastMonday(now.getFullYear(), now.getMonth() + 1);
+    res.json({ is_open: isOpen, target_date: target.toISOString() });
 });
 
-// Fetch Grievances (Admin Only)
-app.get('/api/grievances', (req, res) => {
-    const db = readDB();
-    res.json(db.grievances || []);
-});
+app.get('/api/grievances', (req, res) => res.json(readDB().grievances || []));
 
-// Submit a Grievance or Audit
 app.post('/api/grievances/submit', (req, res) => {
     const db = readDB();
     if (!db.grievances) db.grievances = [];
-
-    // The Secret Key Generator (e.g. GRV-9X2V-KL)
     const secretKey = 'GRV-' + Math.random().toString(36).substr(2, 4).toUpperCase() + '-' + Math.random().toString(36).substr(2, 2).toUpperCase();
 
     const newGrievance = {
-        id: generateId('GRV'),
-        secret_key: secretKey, // Given to user to track status anonymously
-        type: req.body.type, // 'ANONYMOUS_REPORT' or 'MONTHLY_AUDIT'
-
-        // General Data
-        subject: req.body.subject || "Confidential Report",
-        description: req.body.description || "",
-
-        // Audit Specific Data
-        target_user: req.body.target_user || null,
-        exp_office: req.body.exp_office || "",
-        exp_work: req.body.exp_work || "",
-        rating_prof: req.body.rating_prof || null,
-        rating_collab: req.body.rating_collab || null,
-        rating_friend: req.body.rating_friend || null,
-
-        // Status & Timers
-        status: 'INVESTIGATING', // NEW, INVESTIGATING, ACTION_TAKEN, CLOSED
-        submitted_at: new Date().toISOString(),
-        admin_reply: ""
+        id: generateId('GRV'), secret_key: secretKey, type: req.body.type,
+        subject: req.body.subject || "Confidential Report", description: req.body.description || "",
+        target_user: req.body.target_user || null, exp_office: req.body.exp_office || "",
+        exp_work: req.body.exp_work || "", rating_prof: req.body.rating_prof || null,
+        rating_collab: req.body.rating_collab || null, rating_friend: req.body.rating_friend || null,
+        status: 'INVESTIGATING', submitted_at: new Date().toISOString(), admin_reply: ""
     };
 
     db.grievances.push(newGrievance);
     writeDB(db);
-
     res.json({ success: true, secret_key: secretKey });
 });
 
@@ -597,44 +573,150 @@ app.post('/api/grievances/submit', (req, res) => {
 // 🕹️ 11. ARCADE & LEADERBOARD ENGINE
 // ==========================================
 
-// Get the Global Leaderboard
-app.get('/api/arcade/leaderboard', (req, res) => {
-    const db = readDB();
-    res.json(db.arcade || []);
-});
+app.get('/api/arcade/leaderboard', (req, res) => res.json(readDB().arcade || []));
 
-// Submit a new high score or log playtime
 app.post('/api/arcade/log', (req, res) => {
     const db = readDB();
     if (!db.arcade) db.arcade = [];
 
     const { username, game, score, timePlayedSeconds } = req.body;
-
-    // Find if the user already has a record for this game
     let userRecord = db.arcade.find(a => a.username === username && a.game === game);
 
     if (userRecord) {
-        // Update high score if they beat it
-        if (score > userRecord.highScore) {
-            userRecord.highScore = score;
-        }
-        // Add to total time played
+        if (score > userRecord.highScore) userRecord.highScore = score;
         userRecord.timePlayed += timePlayedSeconds;
         userRecord.lastPlayed = new Date().toISOString();
     } else {
-        // Create new record
         db.arcade.push({
-            id: generateId('ARC'),
-            username: username,
-            game: game,
-            highScore: score,
-            timePlayed: timePlayedSeconds,
-            lastPlayed: new Date().toISOString()
+            id: generateId('ARC'), username, game, highScore: score,
+            timePlayed: timePlayedSeconds, lastPlayed: new Date().toISOString()
         });
     }
-
     writeDB(db);
     res.json({ success: true });
+});
+
+// ==========================================
+// 🛠️ 12. UTILITY BELT (PDF & AI ENGINES)
+// ==========================================
+
+// --- AI Mock Engine ---
+app.post('/api/tools/ai', (req, res) => {
+    const { action, text } = req.body;
+    let result = "";
+
+    // Simulated AI processing delay
+    setTimeout(() => {
+        if (action === 'dict') {
+            result = `[Legal Lexicon Result]: '${text}' generally refers to a foundational legal principle. Check specific bare acts for statutory definitions.`;
+        } else if (action === 'para') {
+            result = `[Rephrased for Court]: It is most respectfully submitted that pursuant to the facts stated above, the respondent bears liability.`;
+        } else if (action === 'gist') {
+            result = `[AI Summary]: 1. The petition lacks merit. 2. Jurisdiction is challenged. 3. Interim relief was denied.`;
+        }
+        res.json({ success: true, result });
+    }, 1200);
+});
+
+// --- PDF Merger ---
+app.post('/api/tools/pdf/merge', uploadTemp.array('pdfs', 10), async (req, res) => {
+    try {
+        if (!req.files || req.files.length < 2) return res.status(400).send("Need at least 2 PDFs to merge.");
+
+        const mergedPdf = await PDFDocument.create();
+        for (let file of req.files) {
+            const pdfBytes = fs.readFileSync(file.path);
+            const pdf = await PDFDocument.load(pdfBytes);
+            const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+            copiedPages.forEach((page) => mergedPdf.addPage(page));
+            fs.unlinkSync(file.path); // Clean up temp file
+        }
+
+        const mergedPdfFile = await mergedPdf.save();
+        res.setHeader('Content-Disposition', 'attachment; filename="Merged_Document.pdf"');
+        res.setHeader('Content-Type', 'application/pdf');
+        res.send(Buffer.from(mergedPdfFile));
+    } catch (error) {
+        console.error("PDF Merge Error:", error);
+        res.status(500).send("Failed to merge PDFs.");
+    }
+});
+
+// --- PDF Splitter ---
+app.post('/api/tools/pdf/split', uploadTemp.single('pdf'), async (req, res) => {
+    try {
+        if (!req.file) return res.status(400).send("No PDF uploaded.");
+
+        const rawRange = req.body.pages; // e.g., "1, 3, 5-7"
+        const srcPdf = await PDFDocument.load(fs.readFileSync(req.file.path));
+        const newPdf = await PDFDocument.create();
+
+        // Parse "1, 3, 5-7" into zero-indexed array [0, 2, 4, 5, 6]
+        let pagesToKeep = [];
+        rawRange.split(',').forEach(part => {
+            if (part.includes('-')) {
+                let [start, end] = part.split('-').map(Number);
+                for (let i = start; i <= end; i++) pagesToKeep.push(i - 1);
+            } else {
+                pagesToKeep.push(Number(part) - 1);
+            }
+        });
+
+        // Ensure pages exist
+        const totalPages = srcPdf.getPageCount();
+        pagesToKeep = pagesToKeep.filter(p => p >= 0 && p < totalPages);
+
+        const copiedPages = await newPdf.copyPages(srcPdf, pagesToKeep);
+        copiedPages.forEach((page) => newPdf.addPage(page));
+
+        fs.unlinkSync(req.file.path); // Clean up temp file
+
+        const splitPdfFile = await newPdf.save();
+        res.setHeader('Content-Disposition', 'attachment; filename="Split_Document.pdf"');
+        res.setHeader('Content-Type', 'application/pdf');
+        res.send(Buffer.from(splitPdfFile));
+    } catch (error) {
+        console.error("PDF Split Error:", error);
+        res.status(500).send("Failed to split PDF.");
+    }
+});
+
+// --- Image to PDF Converter ---
+app.post('/api/tools/pdf/img2pdf', uploadTemp.array('images', 50), async (req, res) => {
+    try {
+        if (!req.files || req.files.length === 0) return res.status(400).send("No images provided.");
+
+        const pdfDoc = await PDFDocument.create();
+
+        for (let file of req.files) {
+            const imgBytes = fs.readFileSync(file.path);
+            let img;
+
+            // Embed based on mime type
+            if (file.mimetype.includes('jpeg') || file.mimetype.includes('jpg')) {
+                img = await pdfDoc.embedJpg(imgBytes);
+            } else if (file.mimetype.includes('png')) {
+                img = await pdfDoc.embedPng(imgBytes);
+            } else {
+                fs.unlinkSync(file.path);
+                continue; // Skip unsupported files
+            }
+
+            // Create a page matching the exact image dimensions
+            const page = pdfDoc.addPage([img.width, img.height]);
+            page.drawImage(img, { x: 0, y: 0, width: img.width, height: img.height });
+
+            fs.unlinkSync(file.path); // Clean up temp file
+        }
+
+        const pdfBytes = await pdfDoc.save();
+        res.setHeader('Content-Disposition', 'attachment; filename="Compiled_Annexure.pdf"');
+        res.setHeader('Content-Type', 'application/pdf');
+        res.send(Buffer.from(pdfBytes));
+    } catch (error) {
+        console.error("Img2Pdf Error:", error);
+        res.status(500).send("Failed to convert images.");
+    }
 });
 
 // ==========================================
